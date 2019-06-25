@@ -154,7 +154,7 @@ class NavernewsSpider(scrapy.Spider):
             item['title'] = response.xpath("//h2[@class='article_title']/text()").get()
             #item['author'] = response.xpath("//li[@class='author']/text()").get()
             item['date'] = response.xpath("//time[@class='date']/text()").get().replace('발행일 : ','')
-            content = str(response.xpath("//div[@itemprop='articleBody']").extract())                                                            
+            content = str(response.xpath("//div[@itemprop='articleBody']").extract())  
 
         content = re.sub('<[^>]*>', '', content)
         content = content.replace('\\r','').replace('\\n','').replace('\\t','').replace('  ','').strip()

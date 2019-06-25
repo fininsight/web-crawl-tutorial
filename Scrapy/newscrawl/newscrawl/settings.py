@@ -14,6 +14,13 @@ BOT_NAME = 'newscrawl'
 SPIDER_MODULES = ['newscrawl.spiders']
 NEWSPIDER_MODULE = 'newscrawl.spiders'
 
+FIELDS_TO_EXPORT = [
+    'title',
+    'date',
+    'author',
+    'url',
+    'content'
+]
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'newscrawl (+http://www.yourdomain.com)'
