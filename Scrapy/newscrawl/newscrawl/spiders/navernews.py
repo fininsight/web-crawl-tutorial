@@ -8,10 +8,10 @@ import time
 import random
 from time import sleep
 
-start_date = date(2014, 1, 1)
-end_date = date(2014, 12, 31)
+start_date = date(2018, 1, 1)
+end_date = date(2019, 6, 20)
 cnt_per_page = 10
-keyword = "대한항공"
+keyword = "패스트캠퍼스"
 
 url_format = "https://search.naver.com/search.naver?where=news&query={1}&sm=tab_opt&sort=0&photo=0&field=0&reporter_article=&pd=3&docid=&mynews=0&refresh_start=0&related=0&start={0}"
 date_format = "&ds={0}&de={0}&nso=so%3Ar%2Cp%3Afrom{1}to{1}%2Ca%3Aall"

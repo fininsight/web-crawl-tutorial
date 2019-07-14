@@ -17,3 +17,11 @@ class NewscrawlItem(scrapy.Item):
     category = scrapy.Field()
     url = scrapy.Field()
     media = scrapy.Field()
+
+
+class MaratangItem(scrapy.Item):
+    title = scrapy.Field()
+    author = scrapy.Field()
+    date = scrapy.Field()
+    content = scrapy.Field()
+    url = scrapy.Field()
