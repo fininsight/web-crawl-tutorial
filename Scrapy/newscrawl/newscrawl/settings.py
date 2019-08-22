@@ -29,7 +29,7 @@ FIELDS_TO_EXPORT = [
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 8
+CONCURRENT_REQUESTS = 32
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
@@ -38,8 +38,8 @@ DOWNLOAD_DELAY = 0.5
 DOWNLOAD_TIMEOUT = 5
 
 # The download delay setting will honor only one of:
-CONCURRENT_REQUESTS_PER_DOMAIN = 8
-CONCURRENT_REQUESTS_PER_IP = 8
+CONCURRENT_REQUESTS_PER_DOMAIN = 32
+CONCURRENT_REQUESTS_PER_IP = 32
 
 # Disable cookies (enabled by default)
 #COOKIES_ENABLED = False

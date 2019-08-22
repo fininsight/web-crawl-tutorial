@@ -2,30 +2,37 @@
 import re
 import scrapy
 from newscrawl.items import NewscrawlItem
+import datetime
 from datetime import timedelta, date
 from urllib import parse
 import time
 import random
 from time import sleep
 
-start_date = date(2018, 1, 1)
-end_date = date(2019, 6, 20)
+start_date = date(2009, 1, 1)
+end_date = date(2019, 8 , 20)
 cnt_per_page = 10
-keyword = "인사이트캠퍼스"
+keyword = "환율"
 
 url_format = "https://search.naver.com/search.naver?date_from={0}&date_option=8&date_to={0}&dup_remove=1&nso=so%3Add%2Cp%3Afrom{0}to{0}&post_blogurl=&post_blogurl_without=&query={1}&sm=tab_pge&srchby=all&st=date&where=post&start={2}"
 
 class NaverblogSpider(scrapy.Spider):
-    def daterange(start_date, end_date):
-        for n in range(int ((end_date - start_date).days)):
-            yield start_date + timedelta(n)
-
     name = 'naverblog'
     allowed_domains = ['naver.com'] 
-    start_urls = []
     
-    for single_date in daterange(start_date, end_date):
-        start_urls.append(url_format.format(single_date.strftime("%Y%m%d"), keyword, 1))
+    def start_requests(self):
+        def daterange(start_date, end_date):
+            for n in range(int ((end_date - start_date).days)):
+                yield start_date + timedelta(n)
+
+        start_date = datetime.datetime.strptime(getattr(self, 's', None), "%Y%m%d")
+        end_date = datetime.datetime.strptime(getattr(self, 'e', None), "%Y%m%d")
+        keyword = getattr(self, 'k', None)
+
+        start_urls = []
+    
+        for single_date in daterange(start_date, end_date):
+            yield scrapy.Request(url_format.format(single_date.strftime("%Y%m%d"), keyword, 1), self.parse)
 
     def parse(self, response):
         for href in response.xpath("//ul[@class='type01']/li/dl/dt/a/@href").extract() :

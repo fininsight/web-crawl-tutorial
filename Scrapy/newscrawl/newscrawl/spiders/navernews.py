@@ -8,10 +8,10 @@ import time
 import random
 from time import sleep
 
-start_date = date(2018, 1, 1)
-end_date = date(2019, 6, 20)
+start_date = date(2009, 1, 1)
+end_date = date(2019, 8, 20)
 cnt_per_page = 10
-keyword = "패스트캠퍼스"
+keyword = "환율"
 
 url_format = "https://search.naver.com/search.naver?where=news&query={1}&sm=tab_opt&sort=0&photo=0&field=0&reporter_article=&pd=3&docid=&mynews=0&refresh_start=0&related=0&start={0}"
 date_format = "&ds={0}&de={0}&nso=so%3Ar%2Cp%3Afrom{1}to{1}%2Ca%3Aall"
@@ -155,6 +155,12 @@ class NavernewsSpider(scrapy.Spider):
             #item['author'] = response.xpath("//li[@class='author']/text()").get()
             item['date'] = response.xpath("//time[@class='date']/text()").get().replace('발행일 : ','')
             content = str(response.xpath("//div[@itemprop='articleBody']").extract())  
+
+        if 'news.naver.com' in response.url :
+            item['title'] = response.xpath("//h3[@id='articleTitle']/text()").get()
+            #item['author'] = response.xpath("//li[@class='author']/text()").get()
+            item['date'] = response.xpath("//div[@class='article_info']/div[@class='sponsor']/span[@class='t11']/text()").get().replace('입력 ','')
+            content = str(response.xpath("//div[@id='articleBodyContents']").extract()) 
 
         content = re.sub('<[^>]*>', '', content)
         content = content.replace('\\r','').replace('\\n','').replace('\\t','').replace('  ','').strip()
